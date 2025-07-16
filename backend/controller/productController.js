@@ -12,10 +12,16 @@ exports.createProduct = async(req,res)=>{
 
          const restaurant = await Restaurant.findOne({ owner: req.user._id });
 
-            if (!restaurant) {
+        if (!restaurant) {
               return res.status(403).json({ message: "You must register your restaurant first." });
          }
-     const { name, description, price, category,image,isAvailable } = req.body;
+        const { name, description, price, category,isAvailable } = req.body;
+
+        const image = req.file ? req.file.path : null;
+
+        if(!image){
+            return res.status(400).json({ message: "Image is required" });
+        }
 
         // step:2 (create the product)
 
@@ -124,3 +130,4 @@ exports.deleteProduct = async(req,res) =>{
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+

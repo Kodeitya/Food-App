@@ -134,11 +134,43 @@ const deleteRestaurant = async (req, res) => {
     }
 }
 
+// get nearby restaurants
+
+// controller/restaurantController.js
+
+const getNearbyRestaurants = async (req, res) => {
+  const { latitude, longitude } = req.query;
+
+  if (!latitude || !longitude) {
+    return res.status(400).json({ message: "Latitude and Longitude required" });
+  }
+
+  try {
+    const nearbyRestaurants = await Restaurant.find({
+      location: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [parseFloat(longitude), parseFloat(latitude)],
+          },
+          $maxDistance: 20000, // 20 km in meters
+        },
+      },
+    });
+
+    res.status(200).json(nearbyRestaurants);
+  } catch (err) {
+    console.error("Geo Query Error:", err);
+    res.status(500).json({ message: "Failed to fetch nearby restaurants" });
+  }
+};
+
 
 module.exports = {
     createRestaurant,
     getAllRestaurants,
     getRestaurnatById,
     updateRestaurant,
-    deleteRestaurant
+    deleteRestaurant,
+    getNearbyRestaurants
 };

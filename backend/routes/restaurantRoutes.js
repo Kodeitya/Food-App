@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const {createRestaurant, getAllRestaurants,
-    getRestaurnatById, updateRestaurant, deleteRestaurant} = require('../controller/restaurantController');
+    getRestaurnatById, updateRestaurant, deleteRestaurant,getNearbyRestaurants} = require('../controller/restaurantController');
 
 const { isAuthenticated, restrictTo } = require('../middlewares/auth');
 
@@ -21,5 +21,8 @@ router.put('/:restaurantId', isAuthenticated, restrictTo("vendor"), updateRestau
 
 // Delete a restaurant
 router.delete('/:restaurantId', isAuthenticated, restrictTo("vendor"), deleteRestaurant);
+
+// Get nearby restaurants
+router.get('/nearby', isAuthenticated, getNearbyRestaurants);
 
 module.exports = router;

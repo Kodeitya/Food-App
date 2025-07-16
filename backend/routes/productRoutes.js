@@ -1,7 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
-
+const upload = require('../middlewares/uploadMiddleware');
 const {createProduct, getAllProducts, updateProduct, 
 deleteProduct,getRestaurantProducts} = require('../controller/productController');
 
@@ -10,7 +10,7 @@ const { isAuthenticated, restrictTo } = require('../middlewares/auth');
 
 
 // Create a new product
-router.post('/', isAuthenticated, restrictTo('vendor'), createProduct);
+router.post('/', upload.single('image'),isAuthenticated, restrictTo('vendor'), createProduct);
 
 // Get all products
 router.get('/', isAuthenticated, getAllProducts);
