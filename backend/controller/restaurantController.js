@@ -19,10 +19,11 @@ const createRestaurant = async (req, res) => {
         // Extract restaurant details from request body
 
 
-        const { name, description, address, image, location, categories, openingHours,gsti,phone } = req.body;
+        const { name, description, address, location, categories, openingHours,gsti,phone } = req.body;
+        const image = req.file ? req.file.path : null;
 
         // Validate required fields
-        if (!name || !address || !image || !location || !categories || !openingHours) {
+        if (!name || !address  || !location || !categories || !openingHours) {
             return res.status(400).json({ message: "Please fill all the required fields" });
         }
 

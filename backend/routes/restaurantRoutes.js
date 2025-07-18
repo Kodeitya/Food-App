@@ -6,9 +6,12 @@ const {createRestaurant, getAllRestaurants,
 
 const { isAuthenticated, restrictTo } = require('../middlewares/auth');
 
+const upload = require('../middlewares/uploadResMiddleware');
+
 
 // Create a new restaurant
-router.post('/', isAuthenticated, restrictTo("vendor"), createRestaurant);
+
+router.post('/', isAuthenticated,upload.single('image'), restrictTo("vendor"), createRestaurant);
 
 // Get all restaurants
 router.get('/', isAuthenticated, getAllRestaurants);
