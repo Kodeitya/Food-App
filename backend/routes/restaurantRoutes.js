@@ -20,7 +20,7 @@ router.get('/', isAuthenticated, getAllRestaurants);
 router.get('/:restaurantId', isAuthenticated, getRestaurnatById);
 
 // Update a restaurant
-router.put('/:restaurantId', isAuthenticated, restrictTo("vendor"), updateRestaurant);
+router.put('/:restaurantId', isAuthenticated,upload.single('image'), restrictTo("vendor"), updateRestaurant);
 
 // Delete a restaurant
 router.delete('/:restaurantId', isAuthenticated, restrictTo("vendor"), deleteRestaurant);

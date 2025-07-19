@@ -88,8 +88,9 @@ const getRestaurnatById = async (req,res)=>{
 const updateRestaurant = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, description, address, image, location, categories, openingHours } = req.body;
+        const { name, description, address,  location, categories, openingHours } = req.body;
 
+        const image = req.file ? req.file.path : null;
         // Validate required fields
         if (!name || !address || !image || !location || !categories || !openingHours) {
             return res.status(400).json({ message: "Please fill all the required fields" });

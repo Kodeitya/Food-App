@@ -19,7 +19,7 @@ router.get('/', isAuthenticated, getAllProducts);
 // router.get('/:productId', isAuthenticated, getProductById);
 
 // Update a product
-router.put('/:productId', isAuthenticated, restrictTo("vendor"), updateProduct);
+router.put('/:productId', isAuthenticated,upload.single('image'), restrictTo("vendor"), updateProduct);
 
 // Delete a product
 router.delete('/:productId', isAuthenticated, restrictTo("vendor"), deleteProduct);

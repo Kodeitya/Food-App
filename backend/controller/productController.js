@@ -88,7 +88,9 @@ exports.updateProduct = async(req,res)=>{
 
         const {productId} = req.params;
 
-        const { name, description, price, category, image, isAvailable } = req.body;
+        const { name, description, price, category, isAvailable } = req.body;
+
+         const image = req.file ? req.file.path : null;
         const updatedProduct = await Product.findByIdAndUpdate(
             productId,
             {
