@@ -36,6 +36,11 @@ const userSchema =  new mongoose.Schema({
     restaurantRegistered: {
         type: Boolean,
         default: false
+    },
+
+    isGoogleUser: {
+    type: Boolean,
+    default: false
     }
 
 })
